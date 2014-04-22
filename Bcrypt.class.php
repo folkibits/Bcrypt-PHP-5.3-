@@ -16,28 +16,28 @@
 class Bcrypt {
 	 
 	
-	public static function hash($password,$workload ='12'){ 
-        if (version_compare(PHP_VERSION, '5.3') < 0){ echo 'Bcrypt requires PHP 5.3 or above'; }else{
-        	if(! function_exists('openssl_random_pseudo_bytes') ){ echo "Bcrypt requires openssl PHP extension"; }else{
+   public static function hash($password,$workload ='12'){ 
+      if (version_compare(PHP_VERSION, '5.3') < 0){ echo 'Bcrypt requires PHP 5.3 or above'; }else{
+         if(! function_exists('openssl_random_pseudo_bytes') ){ echo "Bcrypt requires openssl PHP extension"; }else{
 
-	            if($workload < 4 || $workload > 31) $workload = 8;
-	          	$salt = sprintf('$2y$%02d$', $workload).strtr(base64_encode( openssl_random_pseudo_bytes(20)), '+', '.');
-	        	
-	          	return crypt($password, $salt);
+	      if($workload < 4 || $workload > 31) $workload = 8;
+	      $salt = sprintf('$2y$%02d$', $workload).strtr(base64_encode( openssl_random_pseudo_bytes(20)), '+', '.');
+	       	
+	      return crypt($password, $salt);
 
-        	}
+           }
       	}
-	}	
+    }	
 
-	public static function check($password, $storedhash){
-        if (version_compare(PHP_VERSION, '5.3') < 0){ echo 'Bcrypt requires PHP 5.3 or above'; }else{
-        	if(! function_exists('openssl_random_pseudo_bytes')){ echo "Bcrypt requires openssl PHP extension";}else{
+   public static function check($password, $storedhash){
+      if (version_compare(PHP_VERSION, '5.3') < 0){ echo 'Bcrypt requires PHP 5.3 or above'; }else{
+         if(! function_exists('openssl_random_pseudo_bytes')){ echo "Bcrypt requires openssl PHP extension";}else{
 
-        		return crypt($password, $storedhash) == $storedhash;          
+             return crypt($password, $storedhash) == $storedhash;          
 
-        	}
+           }
       	}
-	}	
+     }	
 
 	
 
